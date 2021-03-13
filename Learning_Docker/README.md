@@ -55,7 +55,7 @@
 		``` 
 	* Remove a image
 		```
-		docker rm <imageName:imageTag/imageId>
+		docker rmi <imageName:imageTag/imageId>
 		``` 
 ## Manage Resources
 * Memory Limits
