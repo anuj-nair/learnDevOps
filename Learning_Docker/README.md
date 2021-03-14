@@ -67,3 +67,70 @@
 	docker run --cpu-shares <relative_to_other_containers>
 	docker run --cpu-quota <to_limit_it_in_general>
 	``` 
+## Build Docker Image
+
+### Build a Dockerfile
+```
+docker build -t <imageName> <Folder_of_Dockerfile>
+```
+### Format
+* FROM Statement
+	```
+	FROM image
+	```
+* MAINTAINER Statement
+	```
+	MAINTAINER Firstname Lastname <email@example.com>
+	```
+* RUN Statement
+	```
+	RUN unzip install.zip /opt/install/
+	RUN echo hello docker
+	```
+* ADD Statement
+	```
+	ADD run.sh /run.sh # copies files to folder
+	ADD project.tar.gz /install/ # unzips the file to folder
+	ADD https://project.example.com/download/1.0/project.rpm /project/ # download from website to folder
+	```
+* ENV Statement
+	* Set Environmental Variable 
+	```
+	ENV DB_HOST=db.production.example.com 
+	ENV DB_PORT=5432
+	```
+* ENTRYPOINT and CMD Statement
+	* ENTRYPOINT specifies the start of the command to run
+	* CMD specifies the whole command to run
+	* Shell form
+		```
+		nano notes.txt
+		``` 	
+	* Exec form
+		```
+		["/bin/nano","notes.txt"]
+		``` 
+* EXPOSE Statement
+	```
+	EXPOSE 8080
+	``` 
+* VOLUME Statement
+	* Shared or ephemeral volumes
+	```
+	VOLUME ["/host/path","/container/path/"]
+	VOLUME ["/shared-data"]
+	```
+* WORKDIR Statement
+	* Set the directory container starts in
+	```
+	WORKDIR /install/
+	``` 
+
+* USER Statement
+	* Set which user the container will run as
+	```
+	USER arthur
+	USER 1000
+	```
+
+
