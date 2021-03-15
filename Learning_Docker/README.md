@@ -14,7 +14,7 @@
 		* `--rm` for removing the container after use
 	* To Run GUI in Docker containers
 		```
-		docker run --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw"	<imageName:imageTag/imageId>
+		docker run --rm -ti --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" <imageName:imageTag/imageId>
 		```
 * `ps` Command
 	Shows running containers 
