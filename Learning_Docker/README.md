@@ -10,7 +10,12 @@
 	* Additional options
 		* `-ti` for Terminal Interface
 		* `-d` for Detaching and running the image in background
-
+		* `-v` for mounting a file or folder
+		* `--rm` for removing the container after use
+	* To Run GUI in Docker containers
+		```
+		docker run --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw"	<imageName:imageTag/imageId>
+		```
 * `ps` Command
 	Shows running containers 
 	```
@@ -43,7 +48,15 @@
 	docker logs <containerId/containerName>
 	```
 	* Keep the logs small or they might pile up
-
+* `inspect` Command
+	* It helps you find information about the container
+		```
+		docker inspect <containerId/containerName>
+		```
+		or
+		```
+		docker inspect --format '{{.State.Pid}}' <containerId/containerName>
+		```
 * `kill`,`rm` and `rmi` Command
 	* Kill a container
 		```
@@ -57,6 +70,15 @@
 		```
 		docker rmi <imageName:imageTag/imageId>
 		``` 
+* `save` and `load` Command
+	* Save an image locally
+		```
+		docker save -o <filename>.tar.gz <imageId/imageName>
+		```
+	* Load a saved image
+		```
+		docker load -i <filename>.tar.gz
+		```
 ## Manage Resources
 * Memory Limits
 	```
