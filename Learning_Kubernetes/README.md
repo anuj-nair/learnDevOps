@@ -72,11 +72,12 @@ An Open-source platform designed to automate deploying, scaling and operating ap
 		* NOTIN: A value should not be in a set of defined values
 		* EXISTS: Determines whether a label exists or not
 * Namespaces
+	Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces
 	* Great for large enterprises
 	* Allows teams to access resources, with accountability
 	* Great way to divide cluster resources between users
 	* Provides scope for names must be unique in the namespace
-
+	
 * Kubelet
 	The Kubelet is the "Kubernetes node agent" that runs on each node
 	* Roles
@@ -127,16 +128,107 @@ An Open-source platform designed to automate deploying, scaling and operating ap
 	```
 	kubectl get all
 	```
+* To see all Kubernetes deployment, service or pod
+	```
+	kubectl get deployment
+	kubectl get service
+	kubectl get pods
+	```
 * To create Kubernetes Application from yaml file
 	```
-	kubectl create -f <filename>.yaml
+	kubectl create -f <fileName>.yaml
 	```
 * To expose deployment
 	```
-	kubectl expose deployment <filename> --type=NordPort
+	kubectl expose deployment <appName> --type=NordPort
 	```
-* To see the exposed deployment
+* To start the exposed deployment
 	```
-	minikube service <filename>
+	minikube service <appName>
 	```
+* To get yaml output to of a deployments, services or pods of specific application
+	```
+	kubectl get deployment/<appName> -o yaml
+	kubectl get service/<appName> -o yaml
+	kubectl get pod/<appName> -o yaml
+	```
+* Labels
+	The commands are applicable among deployments, services and pods
+	* To see labels
+		```
+		kubectl get pods --show-labels
+		```
+	* To add labels
+		```
+		kubectl label pod/<appName> <labelName>=<label> --overwrite
+		```
+	* To remove labels
+		```
+		kubectl label pod/<appName> <labelName>-
+		```
+	* To search through labels
+		```
+		kubectl get pods --selector  <labelName>=<label> --show-labels
+		kubectl get pods --selector  <labelName>!=<label>,<labelName>=<label>
+		kubectl get pods -l <labelName>!=<label>,<labelName>=<label> --show-labels
+		```
+	* To search between labels mostly when they are number
+		```
+		kubectl get pods -l '<labelName> in (<lablel>,<label>)' --show-labels 
+		kubectl get pods -l '<labelName> not in (<label>,<label>)'
+		```
+	* To delete through labels
+		```
+		kubectl delete pods --show-labels -l <labelName>=<label>
+		kubectl delete pods --show-labels -l <labelName>=<label>,<labelName>!=<label>
+		```
+* Health Checks
+	* Check the deployments, services or pods
+		```
+ 		kubectl get deployments
+ 		kubectl get services
+ 		kubectl get pods
+		```
+	* Describe the Application for more Information
+		```
+ 		kubectl get deployment/<appName>
+ 		kubectl get service/<appName>
+ 		kubectl get pod/<appName>
+		```
+	* Mostly describing the Pod is enough
+* Rolling Releases
+	* Create Deployment With record option
+		```
+		kubectl create -f <fileName>.yaml --record
+		```
+	* Do Changes
+	* Checking the rollout history
+		```
+		kubectl rollout history deployment/<appName>
+		```
+	* rollout back to previous version
+		```
+		kubectl rollout undo deployment/<appName>
+		```
+		or to a specific version
+		```
+		kubectl rollout undo deployment/<appName> --to-revision=<historyVersion>
+		```
+* Namespaces
+	* Get all existing namespaces 
+		```   
+		kubectl get namespaces
+		```
+	* Create namespaces
+		```
+		kubectl create namespaces <namespaceName>
+		```
+	* Delete namespaces
+		```
+		kubectl delete namespaces <namespaceName>
+		```
+	* When deploying into specific namespace add
+		```
+		-n <namespaceName>
+		```
 
