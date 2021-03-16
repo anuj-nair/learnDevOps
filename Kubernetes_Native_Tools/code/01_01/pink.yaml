@@ -1,11 +1,11 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pink
 spec:
   selector:
     matchLabels:
-      app: punk
+      app: pink
   replicas: 1
   template:
     metadata:
